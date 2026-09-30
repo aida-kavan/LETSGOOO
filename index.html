@@ -1,0 +1,379 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>ردیاب عادت دونفره</title>
+<meta name="theme-color" content="#2f7d6d">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Vazirmatn:wght@400;500;700;800&display=swap" rel="stylesheet">
+<style>
+:root{
+  box-sizing:border-box;
+  padding-top:env(safe-area-inset-top,0px);
+  padding-bottom:env(safe-area-inset-bottom,0px);
+  --bg:#f6f4ef; --card:#ffffff; --ink:#1f2328; --muted:#6b7280; --line:#e7e3da;
+  --me:#2f7d6d; --me-soft:#dff1ec; --other:#d9822b; --other-soft:#fbead8; --danger:#c0392b;
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    --bg:#15181b; --card:#1e2226; --ink:#eceff1; --muted:#9aa4ad; --line:#2d3339;
+    --me:#4cc2a9; --me-soft:#1d3a34; --other:#f0a45a; --other-soft:#41301f; --danger:#ef6f60;
+  }
+}
+:root[data-theme="dark"]{
+  --bg:#15181b; --card:#1e2226; --ink:#eceff1; --muted:#9aa4ad; --line:#2d3339;
+  --me:#4cc2a9; --me-soft:#1d3a34; --other:#f0a45a; --other-soft:#41301f; --danger:#ef6f60;
+}
+html{scroll-padding-top:env(safe-area-inset-top,0px)}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:"Vazirmatn",Tahoma,"Segoe UI",sans-serif;line-height:1.6}
+.wrap{max-width:920px;margin:0 auto;padding:18px 14px 40px}
+h1{font-size:22px;margin:0;font-weight:800}
+.top{display:flex;align-items:center;justify-content:space-between;gap:10px;flex-wrap:wrap;margin-bottom:14px}
+.datenav{display:flex;align-items:center;gap:6px;background:var(--card);border:1px solid var(--line);border-radius:14px;padding:4px}
+.datenav button{border:0;background:transparent;color:var(--ink);font:inherit;width:34px;height:34px;border-radius:10px;cursor:pointer;font-size:18px}
+.datenav button:hover{background:var(--bg)}
+.datenav button:disabled{opacity:.3;cursor:default}
+.datenav .d{min-width:150px;text-align:center;font-weight:600;font-size:14px}
+.today-btn{font:inherit;font-size:12px;border:1px solid var(--line);background:var(--card);color:var(--ink);border-radius:10px;padding:6px 10px;cursor:pointer}
+.card{background:var(--card);border:1px solid var(--line);border-radius:18px;padding:16px}
+.summary{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:14px;margin-bottom:14px}
+.sum{display:flex;align-items:center;gap:14px}
+.ring{position:relative;width:88px;height:88px;flex:none}
+.ring svg{width:88px;height:88px;transform:rotate(-90deg)}
+.ring .pct{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;font-weight:800;font-size:19px}
+.sum .nm{font-weight:700;font-size:16px;word-break:break-word}
+.sum .sub{color:var(--muted);font-size:13px}
+.verdict{text-align:center;font-weight:700;margin:-2px 0 14px;font-size:15px}
+.cols{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:14px;align-items:start}
+.col-h{display:flex;align-items:center;gap:8px;margin-bottom:10px}
+.dot{display:inline-block;width:12px;height:12px;border-radius:50%;flex:none}
+.col-h .t{font-weight:800;font-size:16px}
+.name-in{font:inherit;font-weight:700;font-size:16px;border:0;border-bottom:1.5px dashed var(--line);background:transparent;color:var(--ink);width:100%;padding:2px 0;outline:none}
+.name-in:focus{border-bottom-color:var(--me)}
+.habit{display:flex;align-items:center;gap:10px;padding:10px 6px;border-top:1px solid var(--line)}
+.habit:first-of-type{border-top:0}
+.chk{width:28px;height:28px;border-radius:9px;border:2px solid var(--line);background:transparent;flex:none;display:flex;align-items:center;justify-content:center;color:#fff;font-size:16px;cursor:pointer;padding:0;font-family:inherit}
+.chk.ro{cursor:default}
+.habit .tt{flex:1;word-break:break-word}
+.habit.done .tt{color:var(--muted);text-decoration:line-through;text-decoration-thickness:1px}
+.time{font-size:12px;color:var(--muted);background:var(--bg);border-radius:8px;padding:2px 8px;white-space:nowrap}
+.x{border:0;background:transparent;color:var(--muted);cursor:pointer;font:inherit;font-size:12px;padding:4px 6px;border-radius:8px}
+.x:hover{color:var(--danger)}
+.x.sure{color:#fff;background:var(--danger)}
+.addrow{display:flex;gap:8px;margin-top:12px}
+.addrow input{flex:1;min-width:0;font:inherit;border:1px solid var(--line);background:var(--bg);color:var(--ink);border-radius:12px;padding:9px 12px;outline:none}
+.addrow input:focus{border-color:var(--me)}
+.addrow button{font:inherit;font-weight:700;border:0;background:var(--me);color:#fff;border-radius:12px;padding:0 16px;cursor:pointer}
+.empty{color:var(--muted);text-align:center;padding:18px 6px;font-size:14px}
+.week{margin-top:14px}
+.week h2{font-size:15px;margin:0 0 10px}
+.wgrid{display:grid;grid-template-columns:repeat(7,1fr);gap:6px;text-align:center}
+.wday{border-radius:12px;padding:8px 2px;cursor:pointer;border:1px solid transparent}
+.wday.sel{border-color:var(--ink)}
+.wday .wl{font-size:11px;color:var(--muted)}
+.bars{display:flex;gap:4px;justify-content:center;align-items:flex-end;height:54px;margin:6px 0 4px}
+.bar{width:12px;border-radius:5px 5px 2px 2px;min-height:3px;background:var(--line)}
+.wday .wn{font-size:10px;color:var(--muted);direction:ltr}
+.legend{display:flex;gap:14px;justify-content:center;margin-top:10px;font-size:12px;color:var(--muted)}
+.legend span{display:flex;align-items:center;gap:5px}
+.note{color:var(--muted);font-size:13px;text-align:center;padding:30px 10px}
+.start{max-width:420px;margin:40px auto;text-align:center}.start h2{margin:0 0 6px}.start p{color:var(--muted);font-size:14px;margin:0 0 16px}.start .btn{display:block;width:100%;font:inherit;font-weight:700;border:0;background:var(--me);color:#fff;border-radius:12px;padding:12px;cursor:pointer;margin-bottom:10px}.start .btn.alt{background:var(--bg);color:var(--ink);border:1px solid var(--line)}.start input{width:100%;font:inherit;border:1px solid var(--line);background:var(--bg);color:var(--ink);border-radius:12px;padding:11px 12px;margin-bottom:10px;direction:ltr;text-align:center}.toast{position:fixed;bottom:calc(16px + env(safe-area-inset-bottom,0px));left:50%;transform:translateX(-50%);background:var(--ink);color:var(--bg);padding:8px 16px;border-radius:12px;font-size:13px;display:none;z-index:9}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <div class="top">
+    <h1>🌱 عادت‌های دونفره</h1>
+    <div style="display:flex;gap:8px;align-items:center">
+      <button class="today-btn" id="inviteBtn" style="display:none">🔗 لینک دعوت</button>
+      <button class="today-btn" id="todayBtn">امروز</button>
+      <div class="datenav">
+        <button id="prev" aria-label="روز قبل">›</button>
+        <div class="d" id="dateLabel"></div>
+        <button id="next" aria-label="روز بعد">‹</button>
+      </div>
+    </div>
+  </div>
+
+  <div id="start" class="card start" style="display:none">
+    <h2>شروع</h2>
+    <p>یه اتاق بساز و لینکش رو برای دوستت بفرست. یا اگه کد اتاق رو داری، وارد کن.</p>
+    <button class="btn" id="createRoom">ساخت اتاق جدید</button>
+    <input id="roomCode" placeholder="کد اتاق" maxlength="40" autocomplete="off">
+    <button class="btn alt" id="joinRoom">ورود با کد</button>
+  </div>
+
+  <div id="app" style="display:none">
+    <div class="summary" id="summary"></div>
+    <div class="verdict" id="verdict"></div>
+
+    <div class="cols">
+      <div class="card" id="meCard">
+        <div class="col-h">
+          <span class="dot" style="background:var(--me)"></span>
+          <input class="name-in" id="nameIn" maxlength="24" placeholder="اسمت رو بنویس...">
+        </div>
+        <div id="meList"></div>
+        <div class="addrow">
+          <input id="newHabit" maxlength="60" placeholder="یه عادت جدید اضافه کن...">
+          <button id="addBtn">افزودن</button>
+        </div>
+      </div>
+      <div id="others" style="display:contents"></div>
+    </div>
+
+    <div class="card week">
+      <h2>۷ روز اخیر (برای دیدن هر روز روش بزن)</h2>
+      <div class="wgrid" id="wgrid"></div>
+      <div class="legend"><span><i class="dot" style="background:var(--me)"></i> من</span><span><i class="dot" style="background:var(--other)"></i> دوستم</span></div>
+    </div>
+  </div>
+  <div id="msg" class="note">در حال بارگذاری...</div>
+</div>
+<div class="toast" id="toast"></div>
+
+<script>
+(function(){
+  var $ = function(id){return document.getElementById(id)};
+  var fa = function(n){return Number(n).toLocaleString('fa-IR')};
+  var pad = function(n){return (n<10?'0':'')+n};
+  var keyOf = function(d){return d.getFullYear()+'-'+pad(d.getMonth()+1)+'-'+pad(d.getDate())};
+  var fromKey = function(k){var p=k.split('-');return new Date(+p[0],+p[1]-1,+p[2])};
+  var todayKey = function(){return keyOf(new Date())};
+  var dateFmt = new Intl.DateTimeFormat('fa-IR-u-ca-persian',{weekday:'long',day:'numeric',month:'long'});
+  var dayFmt = new Intl.DateTimeFormat('fa-IR-u-ca-persian',{weekday:'short'});
+  var dnFmt = new Intl.DateTimeFormat('fa-IR-u-ca-persian',{day:'numeric'});
+  var timeFmt = new Intl.DateTimeFormat('fa-IR',{hour:'2-digit',minute:'2-digit',hour12:false});
+
+  var uid, room, people = {}, mine = null, pending = 0, chain = Promise.resolve();
+  var LS = {get:function(k){try{return localStorage.getItem(k)}catch(e){return null}},set:function(k,v){try{localStorage.setItem(k,v)}catch(e){}}};
+  function rand(n){var a=new Uint8Array(n);crypto.getRandomValues(a);return Array.from(a,function(b){return 'abcdefghijkmnpqrstuvwxyz23456789'[b%32]}).join('')}
+  var selDate = todayKey();
+  var sureDel = null, loaded = false;
+  var colors = {me:'var(--me)', other:'var(--other)'};
+
+  function toast(t){var e=$('toast');e.textContent=t;e.style.display='block';clearTimeout(toast._t);toast._t=setTimeout(function(){e.style.display='none'},3500)}
+  function el(tag,cls,text){var e=document.createElement(tag);if(cls)e.className=cls;if(text!=null)e.textContent=text;return e}
+  function newId(){return 'h'+Date.now().toString(36)+Math.random().toString(36).slice(2,6)}
+
+  // ---------- computation ----------
+  function habitsOn(p,day){return (p.habits||[]).filter(function(h){return !h.created || h.created<=day})}
+  function stats(p,day){
+    var hs = habitsOn(p,day), log=(p.log&&p.log[day])||{};
+    var done = hs.filter(function(h){return log[h.id]}).length;
+    return {done:done,total:hs.length,pct:hs.length?Math.round(done*100/hs.length):null};
+  }
+
+  // ---------- saving ----------
+  function save(){
+    if(!room) return;
+    pending++;
+    chain = chain.then(function(){
+      return fetch('/api/room',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({code:room,pid:uid,doc:mine})})
+        .then(function(r){if(!r.ok) return r.json().then(function(j){throw j})});
+    }).catch(function(e){toast(e&&e.error==='room_full'?'این اتاق پره (فقط دو نفر) 😕':'ذخیره نشد 😕 اینترنتت رو چک کن')})
+      .then(function(){pending--});
+  }
+  function clean(){
+    // drop log entries for days older than 400 days to keep the doc small
+    var lim = keyOf(new Date(Date.now()-400*864e5));
+    Object.keys(mine.log).forEach(function(k){if(k<lim) delete mine.log[k]});
+  }
+
+  // ---------- actions ----------
+  function toggle(hid){
+    var day=selDate;
+    if(day>todayKey()) return;
+    mine.log[day]=mine.log[day]||{};
+    if(mine.log[day][hid]) delete mine.log[day][hid];
+    else mine.log[day][hid]=new Date().toISOString();
+    if(!Object.keys(mine.log[day]).length) delete mine.log[day];
+    clean(); render(); save();
+  }
+  function addHabit(){
+    var i=$('newHabit'), t=i.value.trim();
+    if(!t) return;
+    mine.habits.push({id:newId(),title:t,created:todayKey()});
+    i.value=''; render(); save();
+  }
+  function delHabit(hid){
+    if(sureDel!==hid){sureDel=hid;render();setTimeout(function(){if(sureDel===hid){sureDel=null;render()}},3000);return}
+    mine.habits=mine.habits.filter(function(h){return h.id!==hid});
+    Object.keys(mine.log).forEach(function(d){delete mine.log[d][hid]});
+    sureDel=null; render(); save();
+  }
+
+  // ---------- rendering ----------
+  function ring(pct,color){
+    var r=38,c=2*Math.PI*r,v=pct==null?0:pct;
+    return '<svg viewBox="0 0 88 88"><circle cx="44" cy="44" r="'+r+'" fill="none" stroke="var(--line)" stroke-width="9"/>'+
+      '<circle cx="44" cy="44" r="'+r+'" fill="none" stroke="'+color+'" stroke-width="9" stroke-linecap="round" stroke-dasharray="'+(c*v/100)+' '+c+'" style="transition:stroke-dasharray .4s"/></svg>';
+  }
+  function otherList(){
+    return Object.keys(people).filter(function(k){return k!==uid}).map(function(k){return {id:k,p:people[k]}});
+  }
+  function nameOf(p,fallback){return (p&&p.name&&p.name.trim())||fallback}
+
+  function renderSummary(){
+    var box=$('summary'); box.textContent='';
+    var others=otherList();
+    var entries=[{p:mine,label:nameOf(mine,'من'),color:colors.me,isMe:true}].concat(others.map(function(o,i){return {p:o.p,label:nameOf(o.p,'دوستم'),color:colors.other}}));
+    var sts=entries.map(function(e){return stats(e.p,selDate)});
+    entries.forEach(function(e,i){
+      var s=sts[i], card=el('div','card sum');
+      var rg=el('div','ring'); rg.innerHTML=ring(s.pct,e.color);
+      var pc=el('div','pct',s.pct==null?'—':fa(s.pct)+'٪'); rg.appendChild(pc);
+      var tx=el('div'); tx.appendChild(el('div','nm',e.label));
+      tx.appendChild(el('div','sub',s.total?fa(s.done)+' از '+fa(s.total)+' عادت انجام شد':'هنوز عادتی نداره'));
+      card.appendChild(rg);card.appendChild(tx);box.appendChild(card);
+    });
+    var v=$('verdict');
+    if(entries.length<2){v.textContent='دوستت رو دعوت کن تا با هم شروع کنید 👯';return}
+    var a=sts[0].pct,b=sts[1].pct;
+    var isToday = selDate===todayKey();
+    if(a==null||b==null){v.textContent='';return}
+    if(a===b) v.textContent=(a===100?'هر دو ۱۰۰٪! 🎉 ':'مساوی هستید 🤝 ');
+    else{
+      var w=a>b?entries[0].label:entries[1].label;
+      v.textContent=(isToday?'فعلاً ':'')+w+' جلوتره 🏆';
+    }
+  }
+
+  function habitRow(p,h,day,editable,color){
+    var log=(p.log&&p.log[day])||{}, at=log[h.id];
+    var row=el('div','habit'+(at?' done':''));
+    var b=el('button','chk'+(editable?'':' ro'),at?'✓':'');
+    if(at){b.style.background=color;b.style.borderColor=color}
+    if(editable && day<=todayKey()){b.onclick=function(){toggle(h.id)}}
+    else if(editable){b.style.opacity='.4'}
+    row.appendChild(b);
+    row.appendChild(el('div','tt',h.title));
+    if(at){row.appendChild(el('span','time','🕒 '+timeFmt.format(new Date(at))))}
+    if(editable){
+      var x=el('button','x'+(sureDel===h.id?' sure':''),sureDel===h.id?'مطمئنی؟':'حذف');
+      x.onclick=function(){delHabit(h.id)};
+      row.appendChild(x);
+    }
+    return row;
+  }
+
+  function renderMe(){
+    var ni=$('nameIn'); if(document.activeElement!==ni) ni.value=mine.name||'';
+    var box=$('meList'); box.textContent='';
+    var hs=habitsOn(mine,selDate);
+    if(!hs.length){box.appendChild(el('div','empty','هنوز عادتی نداری. از پایین اولین عادتت رو اضافه کن ✨'));return}
+    hs.forEach(function(h){box.appendChild(habitRow(mine,h,selDate,true,colors.me))});
+  }
+
+  function renderOthers(){
+    var box=$('others'); box.textContent='';
+    var os=otherList();
+    if(!os.length){
+      var c=el('div','card'); 
+      var t=el('div','col-h'); var d=el('span','dot'); d.style.background=colors.other; t.appendChild(d); t.appendChild(el('div','t','دوستت'));
+      c.appendChild(t);
+      c.appendChild(el('div','empty','هنوز کسی وارد نشده. لینک این صفحه رو براش بفرست (دکمه‌ی «لینک دعوت» بالای صفحه) و وقتی اولین عادتش رو اضافه کرد، اینجا می‌بینیش.'));
+      box.appendChild(c);return;
+    }
+    os.forEach(function(o){
+      var c=el('div','card');
+      var t=el('div','col-h'); var d=el('span','dot'); d.style.background=colors.other; t.appendChild(d);
+      t.appendChild(el('div','t',nameOf(o.p,'دوستم'))); c.appendChild(t);
+      var hs=habitsOn(o.p,selDate);
+      if(!hs.length) c.appendChild(el('div','empty','هنوز عادتی ثبت نکرده'));
+      hs.forEach(function(h){c.appendChild(habitRow(o.p,h,selDate,false,colors.other))});
+      box.appendChild(c);
+    });
+  }
+
+  function renderWeek(){
+    var g=$('wgrid'); g.textContent='';
+    var os=otherList(), other=os[0]&&os[0].p;
+    for(var i=6;i>=0;i--){
+      var d=new Date(); d.setDate(d.getDate()-i); var k=keyOf(d);
+      var cell=el('div','wday'+(k===selDate?' sel':''));
+      cell.appendChild(el('div','wl',dayFmt.format(d)));
+      var bars=el('div','bars');
+      [[mine,colors.me],[other,colors.other]].forEach(function(pr){
+        if(!pr[0]) return;
+        var s=stats(pr[0],k), b=el('div','bar');
+        b.style.height=(s.pct==null?0:Math.max(s.pct*0.5,3))+'px';
+        if(s.pct!=null) b.style.background=pr[1];
+        b.title=s.pct==null?'':fa(s.pct)+'٪';
+        bars.appendChild(b);
+      });
+      cell.appendChild(bars);
+      var sm=stats(mine,k), so=other?stats(other,k):null;
+      cell.appendChild(el('div','wn',(sm.pct==null?'–':fa(sm.pct))+(so?' | '+(so.pct==null?'–':fa(so.pct)):'')));
+      cell.onclick=(function(kk){return function(){selDate=kk;render()}})(k);
+      g.appendChild(cell);
+    }
+  }
+
+  function render(){
+    if(!mine) return;
+    $('dateLabel').textContent=(selDate===todayKey()?'امروز، ':'')+dateFmt.format(fromKey(selDate));
+    $('next').disabled = selDate>=todayKey();
+    renderSummary(); renderMe(); renderOthers(); renderWeek();
+  }
+
+  // ---------- wiring ----------
+  $('prev').onclick=function(){var d=fromKey(selDate);d.setDate(d.getDate()-1);selDate=keyOf(d);render()};
+  $('next').onclick=function(){var d=fromKey(selDate);d.setDate(d.getDate()+1);var k=keyOf(d);if(k<=todayKey()){selDate=k;render()}};
+  $('todayBtn').onclick=function(){selDate=todayKey();render()};
+  $('addBtn').onclick=addHabit;
+  $('newHabit').addEventListener('keydown',function(e){if(e.key==='Enter')addHabit()});
+  var nameTimer;
+  $('nameIn').addEventListener('input',function(){
+    if(!mine) return; mine.name=this.value.slice(0,24);
+    LS.set('hd_name',mine.name);clearTimeout(nameTimer); nameTimer=setTimeout(function(){renderSummary();renderOthers();save()},600);
+  });
+
+  function fail(text){$('msg').textContent=text;$('msg').style.display='block'}
+
+  function applyData(all){
+    people=all||{};
+    var m=people[uid];
+    if(pending===0){
+      if(m){mine={name:m.name||'',habits:(m.habits||[]).slice(),log:JSON.parse(JSON.stringify(m.log||{}))}}
+      else if(!mine){mine={name:LS.get('hd_name')||'',habits:[],log:{}}}
+    } else if(!mine){mine={name:LS.get('hd_name')||'',habits:[],log:{}}}
+    if(!loaded){loaded=true;$('msg').style.display='none';$('start').style.display='none';$('app').style.display='block';$('inviteBtn').style.display=''}
+    render();
+  }
+  function load(){
+    if(!room) return Promise.resolve();
+    return fetch('/api/room?code='+encodeURIComponent(room),{cache:'no-store'})
+      .then(function(r){if(!r.ok) throw new Error('bad');return r.json()})
+      .then(function(j){applyData(j.people)})
+      .catch(function(){if(!loaded) fail('اتصال به سرور برقرار نشد. صفحه رو دوباره باز کن.')});
+  }
+  function enterRoom(code){
+    room=code; LS.set('hd_room',code);
+    try{history.replaceState(null,'','?room='+code)}catch(e){}
+    $('start').style.display='none';
+    $('msg').textContent='در حال بارگذاری...';$('msg').style.display='block';
+    load(); setInterval(load,5000);
+    document.addEventListener('visibilitychange',function(){if(!document.hidden) load()});
+  }
+  $('inviteBtn').onclick=function(){
+    var link=location.origin+location.pathname+'?room='+room;
+    (navigator.clipboard?navigator.clipboard.writeText(link):Promise.reject()).then(function(){toast('لینک دعوت کپی شد ✅')},function(){prompt('این لینک رو کپی کن:',link)});
+  };
+  $('createRoom').onclick=function(){enterRoom(rand(12))};
+  $('joinRoom').onclick=function(){
+    var c=$('roomCode').value.trim();
+    var m=c.match(/room=([A-Za-z0-9_-]{6,40})/); if(m) c=m[1];
+    if(!/^[A-Za-z0-9_-]{6,40}$/.test(c)){toast('کد اتاق درست نیست');return}
+    enterRoom(c);
+  };
+
+  uid=LS.get('hd_pid'); if(!uid){uid=rand(16);LS.set('hd_pid',uid)}
+  var q=(location.search.match(/[?&]room=([A-Za-z0-9_-]{6,40})/)||[])[1]||LS.get('hd_room');
+  if(q) enterRoom(q); else {$('msg').style.display='none';$('start').style.display='block'}
+})();
+</script>
+</body>
+</html>
