@@ -127,7 +127,7 @@ h1{font-size:22px;margin:0;font-weight:800}
     <div class="card week">
       <h2>۷ روز اخیر (برای دیدن هر روز روش بزن)</h2>
       <div class="wgrid" id="wgrid"></div>
-      <div class="legend"><span><i class="dot" style="background:var(--me)"></i> من</span><span><i class="dot" style="background:var(--other)"></i> دوستم</span></div>
+      <div class="legend"><span><i class="dot" style="background:var(--me)"></i> من</span><span><i class="dot" style="background:var(--other)"></i> کاپیتان</span></div>
     </div>
   </div>
   <div id="msg" class="note">در حال بارگذاری...</div>
@@ -219,7 +219,7 @@ h1{font-size:22px;margin:0;font-weight:800}
   function renderSummary(){
     var box=$('summary'); box.textContent='';
     var others=otherList();
-    var entries=[{p:mine,label:nameOf(mine,'من'),color:colors.me,isMe:true}].concat(others.map(function(o,i){return {p:o.p,label:nameOf(o.p,'دوستم'),color:colors.other}}));
+    var entries=[{p:mine,label:nameOf(mine,'من'),color:colors.me,isMe:true}].concat(others.map(function(o,i){return {p:o.p,label:nameOf(o.p,'کاپیتان'),color:colors.other}}));
     var sts=entries.map(function(e){return stats(e.p,selDate)});
     entries.forEach(function(e,i){
       var s=sts[i], card=el('div','card sum');
@@ -280,7 +280,7 @@ h1{font-size:22px;margin:0;font-weight:800}
     os.forEach(function(o){
       var c=el('div','card');
       var t=el('div','col-h'); var d=el('span','dot'); d.style.background=colors.other; t.appendChild(d);
-      t.appendChild(el('div','t',nameOf(o.p,'دوستم'))); c.appendChild(t);
+      t.appendChild(el('div','t',nameOf(o.p,'کاپیتان'))); c.appendChild(t);
       var hs=habitsOn(o.p,selDate);
       if(!hs.length) c.appendChild(el('div','empty','هنوز عادتی ثبت نکرده'));
       hs.forEach(function(h){c.appendChild(habitRow(o.p,h,selDate,false,colors.other))});
